@@ -28,7 +28,7 @@
 		<var name="failedTestList" value=""/>
 		
                 <!-- interate over the test project and triiger all xml tests in the setup folder -->
-                <for param="testProject" keepgoing="true" trim="true">
+        <for param="testProject" keepgoing="true" trim="true">
 			<path>
 				<dirset dir="${testSuitePackagesPath}" includes="*" excludes=".*,replicate" />
 			</path>
@@ -47,7 +47,7 @@
 						<echo message="JUnit test for package '@{testProject}' failed" />
 						<var name="failedTestList" value="${failedTestList}'@{packageName}', " />
 						<property name="testFail" refid="exception_ref" />
-						<fail>Unit test failure</fail>
+						
 					</catch>
 				</trycatch>
 			</sequential>
@@ -61,7 +61,8 @@
 				<equals arg1="${failedTestList}" arg2="" trim="true" />
 			</not>
 			<then>
-				<fail unless="isReportingToJenkins" message="At least one test failed. Failed packages: ${failedTestList}" />
+				<!-- <fail unless="isReportingToJenkins" message="At least one test failed. Failed packages: ${failedTestList}" /> -->
+				<fail  message="At least one test failed. Failed packages: ${failedTestList}" />
 			</then>
 			<else>
 				<echo message="All JUnit Tests passed."/>

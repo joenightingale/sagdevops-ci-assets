@@ -32,11 +32,12 @@
     <target name="test" depends="initProject,startTest">
 		<description>Run tests.</description>
 	</target>
+	
 	<target name="promote" depends="initProject,promoteWM">
 		<description>Promote to Test</description>
 	</target>		
 	
-	<target name="buildDeployTest" depends="build, deploy, test, promoteWM">
+	<target name="buildDeployTest" depends="build, deploy, test, promote">
 		<description>Build, deploy, test and promote the project.</description>
 	</target>
 </project>
