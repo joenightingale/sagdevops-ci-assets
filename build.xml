@@ -16,6 +16,7 @@
 	<import file="buildCallABE.xml"/>
 	<import file="buildDeployer.xml"/>
 	<import file="buildTest.xml"/>
+	<import file="buildPromote.xml"/>
 	
 
 	<taskdef classpath="lib/ant-contrib.jar" resource="net/sf/antcontrib/antlib.xml"/>
@@ -28,9 +29,12 @@
 		<description>Deploy project.</description>
 	</target>
 
-        <target name="test" depends="initProject,startTest">
+    <target name="test" depends="initProject,startTest">
 		<description>Run tests.</description>
-	</target>	
+	</target>
+	<target name="test" depends="initProject,promoteWM">
+		<description>Run tests.</description>
+	</target>		
 	
 	<target name="buildDeployTest" depends="build, deploy, test">
 		<description>Build and deploy the project.</description>
