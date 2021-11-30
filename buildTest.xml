@@ -47,6 +47,7 @@
 						<echo message="JUnit test for package '@{testProject}' failed" />
 						<var name="failedTestList" value="${failedTestList}'@{packageName}', " />
 						<property name="testFail" refid="exception_ref" />
+						<fail>Unit test failure</fail>
 					</catch>
 				</trycatch>
 			</sequential>
