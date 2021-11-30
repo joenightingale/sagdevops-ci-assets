@@ -18,7 +18,7 @@
 	<property name="deployerProjectDefinition" value="${workspace.dir}/ProjectAutomator/${projectName}DeploymentSpec.xml"/>
 	
 	<!-- XSLT for the Deployer Project Specification - adding Repository and Project Sections -->
-	<property name="initialXSLT" value="resources/setUpInitial.xslt"/>
+	<property name="initialXSLT" value="resources/setUpInitialBuild.xslt"/>
 	
 	<target name="deployWM" description="main deploy task" depends="startDeployment, initPAandDeployerWindows, initPAandDeployerUnix, createDeployerSpec,execProjectAutomator,triggerDeploy">
 	</target>
@@ -69,10 +69,10 @@
 			<param name="deployerPassword" expression="${deployerPassword}" />
 			
 			<!--target server props -->
-			<param name="testISHost" expression="${buildISHost}" />
-			<param name="testISPort" expression="${buildISPort}" />
-			<param name="testISUsername" expression="${buildISUsername}" />
-			<param name="testISPassword" expression="${buildISPassword}" />
+			<param name="buildISHost" expression="${buildISHost}" />
+			<param name="buildISPort" expression="${buildISPort}" />
+			<param name="buildISUsername" expression="${buildISUsername}" />
+			<param name="buildISPassword" expression="${buildISPassword}" />
 			
 			<!-- general props -->
 			<param name="repoName" expression="${repositoryName}" />
