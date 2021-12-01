@@ -20,10 +20,10 @@
 	<!-- XSLT for the Deployer Project Specification - adding Repository and Project Sections -->
 	<property name="initialXSLT" value="resources/setUpInitial.xslt"/>
 	
-	<target name="promoteWM" description="main promote task" depends="startDeployment, initPAandDeployerWindows, initPAandDeployerUnix, createDeployerSpec,execProjectAutomator,triggerDeploy">
+	<target name="promoteWM" description="main promote task" depends="startTestDeployment, initPAandDeployerWindows, initPAandDeployerUnix, createTestDeployerSpec,execTestProjectAutomator,triggerTestDeploy">
 	</target>
 
-	<target name="startDeployment">		
+	<target name="startTestDeployment">		
 		<echo message="Start deploying ${projectName}" />
 	</target>
 
@@ -48,10 +48,10 @@
 	<!-- determine which PA and Deployer executables are used - different for Windows and Unix -->
         
 		
-	<target name="createDeployerSpec" depends="cleanupDeployerSpec,setupDeployerSpec">		
+	<target name="createTestDeployerSpec" depends="cleanupTestDeployerSpec,setupTestDeployerSpec">		
 	</target>
 	
-	<target name="cleanupDeployerSpec">
+	<target name="cleanupTestDeployerSpec">
 		<if>
 			<available file="${deployerProjectDefinition}"/>
 			<then>
@@ -60,7 +60,7 @@
 		</if>	
 	</target>
 	
-	<target name="setupDeployerSpec" description="Creates the project automator xml with XSLT based on the given variables.">				
+	<target name="setupTestDeployerSpec" description="Creates the project automator xml with XSLT based on the given variables.">				
 		<xslt style="${initialXSLT}" in="${deployerProjectDefinitionTemplate}" out="${deployerProjectDefinition}">
 			<!--build/deployer server props -->
 			<param name="deployerHost" expression="${deployerHost}" />
@@ -82,7 +82,7 @@
 	</target>
 	
 		
-	<target name="execProjectAutomator">
+	<target name="execTestProjectAutomator">
 		<path id="pathProjectdefinition">
 			<pathelement location="${deployerProjectDefinition}" />
 		</path>
@@ -104,7 +104,7 @@
 		</if>		
 	</target>
 	
-	<target name="triggerDeploy">
+	<target name="triggerTestDeploy">
 		<exec executable="${deployerInstallationPath}/${deployerExecutable}" dir="${deployerInstallationPath}" failonerror="true" resultproperty="appState">
 			<arg value="--deploy"/>
 			<arg line="-project ${projectName}"/>
