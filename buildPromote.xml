@@ -12,10 +12,10 @@
      
 	<!-- Global Variables that concern the code and should be changed only if the code is changed -->
 	<!-- Template for the Deployer Project Specification -->
-	<property name="deployerProjectDefinitionTemplate" value="resources/ProjectSpecificationTemplate.xml"/>
+	<property name="deployerTestProjectDefinitionTemplate" value="resources/ProjectSpecificationTemplate.xml"/>
 	
 	<!-- Target filename of the Deployer Project Specification for this run -->
-	<property name="deployerProjectDefinition" value="${workspace.dir}/ProjectAutomator/${projectName}TestDeploymentSpec.xml"/>
+	<property name="deployerTestProjectDefinition" value="${workspace.dir}/ProjectAutomator/${projectName}TestDeploymentSpec.xml"/>
 	
 	<!-- XSLT for the Deployer Project Specification - adding Repository and Project Sections -->
 	<property name="initialXSLT" value="resources/setUpInitial.xslt"/>
@@ -53,15 +53,15 @@
 	
 	<target name="cleanupTestDeployerSpec">
 		<if>
-			<available file="${deployerProjectDefinition}"/>
+			<available file="${deployerTestProjectDefinition}"/>
 			<then>
-				<delete file="${deployerProjectDefinition}"/>	
+				<delete file="${deployerTestProjectDefinition}"/>	
 			</then>
 		</if>	
 	</target>
 	
 	<target name="setupTestDeployerSpec" description="Creates the project automator xml with XSLT based on the given variables.">				
-		<xslt style="${initialXSLT}" in="${deployerProjectDefinitionTemplate}" out="${deployerProjectDefinition}">
+		<xslt style="${initialXSLT}" in="${deployerTestProjectDefinitionTemplate}" out="${deployerTestProjectDefinition}">
 			<!--build/deployer server props -->
 			<param name="deployerHost" expression="${deployerHost}" />
 			<param name="deployerPort" expression="${deployerPort}" />
@@ -84,7 +84,7 @@
 		
 	<target name="execTestProjectAutomator">
 		<path id="pathProjectdefinition">
-			<pathelement location="${deployerProjectDefinition}" />
+			<pathelement location="${deployerTestProjectDefinition}" />
 		</path>
 		<pathconvert refid="pathProjectdefinition" property="pathProjectdefinitionFile"/>
 		
