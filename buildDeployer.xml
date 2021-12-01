@@ -107,7 +107,7 @@
 	<target name="triggerDeploy">
 		<exec executable="${deployerInstallationPath}/${deployerExecutable}" dir="${deployerInstallationPath}" failonerror="true" resultproperty="appState">
 			<arg value="--deploy"/>
-			<arg line="-project ${projectName}"/>
+			<arg line="-project ${projectName}Build"/>
 			<arg line="-dc myDeploymentBuild"/> 
 			<arg line="-host ${deployerHost}"/>
 			<arg line="-port ${deployerPort}"/>
