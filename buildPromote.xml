@@ -77,7 +77,7 @@
 			<!-- general props -->
 			<param name="repoName" expression="${repositoryName}" />
 			<param name="repoPath" expression="${buildOutputDir}" />
-			<param name="projectName" expression="${projectName}" />				
+			<param name="projectName" expression="${projectName}Test" />				
 		</xslt>				
 	</target>
 	
@@ -107,7 +107,7 @@
 	<target name="triggerTestDeploy">
 		<exec executable="${deployerInstallationPath}/${deployerExecutable}" dir="${deployerInstallationPath}" failonerror="true" resultproperty="appState">
 			<arg value="--deploy"/>
-			<arg line="-project DeployTest"/>
+			<arg line="-project ${projectName}"/>
 			<arg line="-dc myDeployment"/>
 			<arg line="-host ${deployerHost}"/>
 			<arg line="-port ${deployerPort}"/>
