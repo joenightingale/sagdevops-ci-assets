@@ -18,7 +18,7 @@
 	<property name="deployerTestProjectDefinition" value="${workspace.dir}/ProjectAutomator/${projectName}TestDeploymentSpec.xml"/>
 	
 	<!-- XSLT for the Deployer Project Specification - adding Repository and Project Sections -->
-	<property name="initialXSLT" value="resources/setUpInitial.xslt"/>
+	<property name="initialTestXSLT" value="resources/setUpInitial.xslt"/>
 	
 	<target name="promoteWM" description="main promote task" depends="startTestDeployment, initPAandDeployerWindows, initPAandDeployerUnix, createTestDeployerSpec,execTestProjectAutomator,triggerTestDeploy">
 	</target>
@@ -61,7 +61,7 @@
 	</target>
 	
 	<target name="setupTestDeployerSpec" description="Creates the project automator xml with XSLT based on the given variables.">				
-		<xslt style="${initialXSLT}" in="${deployerTestProjectDefinitionTemplate}" out="${deployerTestProjectDefinition}">
+		<xslt style="${initialTestXSLT}" in="${deployerTestProjectDefinitionTemplate}" out="${deployerTestProjectDefinition}">
 			<!--build/deployer server props -->
 			<param name="deployerHost" expression="${deployerHost}" />
 			<param name="deployerPort" expression="${deployerPort}" />
