@@ -88,6 +88,7 @@
 		<if>
 			<available file="${substituionFile}"/>
 			<then>
+				<echo message="exec: ${deployerInstallationPath}/${deployerExecutable}"/>
 				<exec executable="${deployerInstallationPath}/${deployerExecutable}" dir="${deployerInstallationPath}" failonerror="true" resultproperty="appState">
 					<arg value="--import"/>
 					<arg line="-varsub -vsFile ${substituionFile}"/>
