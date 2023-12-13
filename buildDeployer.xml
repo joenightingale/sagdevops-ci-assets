@@ -83,11 +83,12 @@
 	
 		
 	<target name="execProjectAutomator">
+		<echo message="Proj Def Path Before Convert ${deployerProjectDefinition}" />
 		<path id="pathProjectdefinition">
 			<pathelement location="${deployerProjectDefinition}" />
 		</path>
 		<pathconvert refid="pathProjectdefinition" property="pathProjectdefinitionFile"/>
-		
+		<echo message="Proj Def After Convert ${pathProjectdefinitionFile}" />
 				
 		<exec dir="${deployerInstallationPath}"  executable="${deployerInstallationPath}/${deployerAutomatorExecutable}" failonerror="true" resultproperty="appState">		
 			<arg value="${pathProjectdefinitionFile}" />
