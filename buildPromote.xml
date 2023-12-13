@@ -115,6 +115,9 @@
 					</else>
 				</if>
 			</then>
+			<else>
+				<echo message="no substitution required"/>
+			</else> 
 		</if>		
 	</target>	
 		
