@@ -88,10 +88,11 @@
 		<if>
 			<available file="${substituionFile}"/>
 			<then>
+				<copy file="${substituionFile}" todir="${deployerInstallationPath}../replicate/inbound/"/>
 				<echo message="exec: ${deployerInstallationPath}/${deployerExecutable}"/>
 				<exec executable="${deployerInstallationPath}/${deployerExecutable}" dir="${deployerInstallationPath}" failonerror="true" resultproperty="appState">
 					<arg value="--import"/>
-					<arg line="-varsub -vsFile ${substituionFile}"/>
+					<arg line="-varsub -vsFile test.vs"/>
 					<arg line="-map myDeploymentMap"/>
 					<arg line="-project ${projectName}Test"/>
 					<arg line="-validate true"/>
