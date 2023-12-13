@@ -21,7 +21,7 @@
 	<!-- XSLT for the Deployer Project Specification - adding Repository and Project Sections -->
 	<property name="initialTestXSLT" value="resources/setUpInitial.xslt"/>
 	
-	<target name="promoteWM" description="main promote task" depends="startTestDeployment, initPAandDeployerWindows, initPAandDeployerUnix, createTestDeployerSpec,mapsetSubstitution,execTestProjectAutomator,triggerTestDeploy">
+	<target name="promoteWM" description="main promote task" depends="startTestDeployment, initPAandDeployerWindows, initPAandDeployerUnix, createTestDeployerSpec,execTestProjectAutomator,mapsetSubstitution,triggerTestDeploy">
 	</target>
 
 	<target name="startTestDeployment">		
