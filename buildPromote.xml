@@ -16,15 +16,17 @@
 	
 	<!-- Target filename of the Deployer Project Specification for this run -->
 	<property name="deployerTestProjectDefinition" value="${workspace.dir}/ProjectAutomator/${projectName}TestDeploymentSpec.xml"/>
+	<property name="substituionFile" value="${workspace.dir}/${projectName}/assets/IS/config/test.vs"/>
 	
 	<!-- XSLT for the Deployer Project Specification - adding Repository and Project Sections -->
 	<property name="initialTestXSLT" value="resources/setUpInitial.xslt"/>
 	
-	<target name="promoteWM" description="main promote task" depends="startTestDeployment, initPAandDeployerWindows, initPAandDeployerUnix, createTestDeployerSpec,execTestProjectAutomator,triggerTestDeploy">
+	<target name="promoteWM" description="main promote task" depends="startTestDeployment, initPAandDeployerWindows, initPAandDeployerUnix, createTestDeployerSpec,mapsetSubstitution,execTestProjectAutomator,triggerTestDeploy">
 	</target>
 
 	<target name="startTestDeployment">		
 		<echo message="Start deploying ${projectName}" />
+		<echo message="Target Has Substitutions File: ${substituionFile}" />
 	</target>
 
     <!-- determine which PA and Deployer executables are used - different for Windows and Unix -->
@@ -78,9 +80,43 @@
 			<param name="repoName" expression="${repositoryName}" />
 			<param name="repoPath" expression="${buildOutputDir}" />
 			<param name="projectName" expression="${projectName}Test" />				
-		</xslt>				
+		</xslt>
+		<if>
+			<available file="${deployerTestProjectDefinition}"/>
+			<then>
+				<delete file="${deployerTestProjectDefinition}"/>	
+			</then>
+		</if>					
 	</target>
 	
+	<target name="mapsetSubstitution">
+		<if>
+			<available file="${substituionFile}"/>
+			<then>
+				<exec executable="${deployerInstallationPath}/${deployerExecutable}" dir="${deployerInstallationPath}" failonerror="true" resultproperty="appState">
+					<arg value="--import"/>
+					<arg line="-varsub -vsFile ${substituionFile}"/>
+					<arg line="-map myDeploymentMap"/>
+					<arg line="-project ${projectName}Test"/>
+					<arg line="-validate true"/>
+					<arg line="-host ${deployerHost}"/>
+					<arg line="-port ${deployerPort}"/>
+					<arg line="-user ${deployerUsername}"/>
+					<arg line="-pwd ${deployerPassword}"/>
+				</exec>
+				
+				<if>			
+				<equals arg1="${appState}" arg2="0" trim="true"/>			
+					<then>
+						<echo message="Substitution successfully executed."/>
+					</then>
+					<else>			    				
+						<fail message="Substitution failed."/>
+					</else>
+				</if>
+			</then>
+		</if>		
+	</target>	
 		
 	<target name="execTestProjectAutomator">
 		<path id="pathProjectdefinition">
