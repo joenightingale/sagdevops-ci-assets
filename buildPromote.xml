@@ -16,7 +16,7 @@
 	
 	<!-- Target filename of the Deployer Project Specification for this run -->
 	<property name="deployerTestProjectDefinition" value="${workspace.dir}/ProjectAutomator/${projectName}TestDeploymentSpec.xml"/>
-	<property name="substituionFile" value="${workspace.dir}/${projectName}/assets/IS/config/test.vs"/>
+	<property name="substituionFile" value="${workspace.dir}/assets/IS/config/test.vs"/>
 	
 	<!-- XSLT for the Deployer Project Specification - adding Repository and Project Sections -->
 	<property name="initialTestXSLT" value="resources/setUpInitial.xslt"/>
@@ -81,12 +81,7 @@
 			<param name="repoPath" expression="${buildOutputDir}" />
 			<param name="projectName" expression="${projectName}Test" />				
 		</xslt>
-		<if>
-			<available file="${deployerTestProjectDefinition}"/>
-			<then>
-				<delete file="${deployerTestProjectDefinition}"/>	
-			</then>
-		</if>					
+				
 	</target>
 	
 	<target name="mapsetSubstitution">
